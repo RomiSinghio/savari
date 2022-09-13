@@ -68,13 +68,13 @@ const props = defineProps({
                             scope="col"
                             class="px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase "
                           >
-                            Net Pay
+                            Gross Pay
                           </th>
                           <th
                             scope="col"
                             class="px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase "
                           >
-                            Actual Pay
+                            Net Pay
                           </th>
 
                           <th
@@ -111,12 +111,12 @@ const props = defineProps({
                           <td
                             class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
                           >
-                            £{{ report.net_pay }}
+                          £{{ report.gross_pay }}
                           </td>
                           <td
                             class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
                           >
-                            £{{ report.actual_pay }}
+                          £{{ report.net_pay ?? '0' }}
                           </td>
 
                           <td

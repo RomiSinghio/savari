@@ -35,6 +35,7 @@ const form = useForm({
   food_allowance: null,
   fuel_allowance: null,
   notes: null,
+  standard_hours: null,
   total_hours: null,
   net_pay: null,
   overtime: null,
@@ -80,8 +81,8 @@ const calculatePay = () => {
     15 * form.wednesday_bonus +
     15 * form.thursday_bonus +
     15 * form.friday_bonus +
-    15 * form.saturday_bonus +
-    15 * form.sunday_bonus +    
+    16 * form.saturday_bonus +
+    16 * form.sunday_bonus +    
     form.monday_fixed +
     form.tuesday_fixed +
     form.wednesday_fixed +
@@ -93,7 +94,7 @@ const calculatePay = () => {
     form.fuel_allowance
     + form.overtime * 1;
 
-  form.actual_pay = form.net_pay - form.deductions + form.expenses;
+    form.standard_hours = form.total_hours - form.overtime;
 };
 
 function storeReport() {
@@ -219,7 +220,7 @@ function storeReport() {
                   v-model="form.wednesday_hours"
                   @change="calculatePay"
                   placeholder="0"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -241,7 +242,7 @@ function storeReport() {
                   v-model="form.thursday_hours"
                   @change="calculatePay"
                   placeholder="0"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -260,7 +261,7 @@ function storeReport() {
                   v-model="form.friday_hours"
                   @change="calculatePay"
                   placeholder="0"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -270,7 +271,7 @@ function storeReport() {
                 for="region"
                 class="block text-sm font-medium text-gray-700"
               >
-                Saturday <span class="font-bold text-red-500">H</span> £14
+                Saturday <span class="font-bold text-red-500">H</span> £15
               </label>
               <div class="mt-1">
                 <input
@@ -282,14 +283,14 @@ function storeReport() {
                   v-model="form.saturday_hours"
                   @change="calculatePay"
                   placeholder="0"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
 
             <div class="sm:col-span-1">
               <label for="city" class="block text-sm font-medium text-gray-700">
-                Sunday <span class="font-bold text-red-500">H</span> £14
+                Sunday <span class="font-bold text-red-500">H</span> £15
               </label>
               <div class="mt-1">
                 <input
@@ -301,7 +302,7 @@ function storeReport() {
                   v-model="form.sunday_hours"
                   @change="calculatePay"
                   placeholder="0"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -311,7 +312,7 @@ function storeReport() {
                 for="region"
                 class="block text-sm font-medium text-gray-700"
               >
-                Monday <span class="font-bold text-orange-500">O</span>
+                Monday <span class="font-bold text-orange-500">B</span> £15
               </label>
               <div class="mt-1">
                 <input
@@ -322,14 +323,14 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.monday_bonus"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
 
             <div class="sm:col-span-1">
               <label for="city" class="block text-sm font-medium text-gray-700">
-                Tuesday <span class="font-bold text-orange-500">O</span>
+                Tuesday <span class="font-bold text-orange-500">B</span> £15
               </label>
               <div class="mt-1">
                 <input
@@ -340,7 +341,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.tuesday_bonus"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -350,7 +351,7 @@ function storeReport() {
                 for="region"
                 class="block text-sm font-medium text-gray-700"
               >
-                Wednesday <span class="font-bold text-orange-500">O</span>
+                Wednesday <span class="font-bold text-orange-500">B</span> £15
               </label>
               <div class="mt-1">
                 <input
@@ -361,14 +362,14 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.wednesday_bonus"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
 
             <div class="sm:col-span-1">
               <label for="city" class="block text-sm font-medium text-gray-700">
-                Thursday <span class="font-bold text-orange-500">O</span>
+                Thursday <span class="font-bold text-orange-500">B</span> £15
               </label>
               <div class="mt-1">
                 <input
@@ -379,7 +380,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.thursday_bonus"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -389,7 +390,7 @@ function storeReport() {
                 for="region"
                 class="block text-sm font-medium text-gray-700"
               >
-                Friday <span class="font-bold text-orange-500">O</span>
+                Friday <span class="font-bold text-orange-500">B</span> £15
               </label>
               <div class="mt-1">
                 <input
@@ -400,14 +401,14 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.friday_bonus"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
 
             <div class="sm:col-span-1">
               <label for="city" class="block text-sm font-medium text-gray-700">
-                Saturday <span class="font-bold text-orange-500">O</span>
+                Saturday <span class="font-bold text-orange-500">B</span> £16
               </label>
               <div class="mt-1">
                 <input
@@ -418,7 +419,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.saturday_bonus"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -428,7 +429,7 @@ function storeReport() {
                 for="region"
                 class="block text-sm font-medium text-gray-700"
               >
-                Sunday <span class="font-bold text-orange-500">O</span>
+                Sunday <span class="font-bold text-orange-500">B</span> £16
               </label>
               <div class="mt-1">
                 <input
@@ -439,7 +440,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.sunday_bonus"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -460,7 +461,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.monday_fixed"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -478,7 +479,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.tuesday_fixed"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -499,7 +500,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.wednesday_fixed"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -517,7 +518,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.thursday_fixed"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -538,7 +539,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.friday_fixed"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -556,7 +557,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.saturday_fixed"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -577,11 +578,10 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.sunday_fixed"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
-            
 
             <div class="sm:col-span-2">
               <label
@@ -599,7 +599,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.food_allowance"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -620,7 +620,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.fuel_allowance"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>
@@ -647,67 +647,35 @@ function storeReport() {
         </div>
       </div>
       <div class="space-y-8 divide-y divide-gray-200">
-          <div class="grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div class="sm:col-span-2">
-              <label
-                for="region"
-                class="block text-sm font-medium text-gray-700"
-              >
-                Expenses <span class="font-bold text-green-500">+</span>
-              </label>
-              <div class="mt-1">
-                <input
-                  type="number"
-                  name="net-pay"
-                  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  v-model="form.expenses"
-                  @change="calculatePay"
-                  step='any'
-                />
-              </div>
-            </div>
-
-            <div class="sm:col-span-2">
-              <label
-                for="region"
-                class="block text-sm font-medium text-gray-700"
-              >
-                Deductions <span class="font-bold text-rose-500">-</span>
-              </label>
-              <div class="mt-1">
-                <input
-                  type="number"
-                  name="net-pay"
-                  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  v-model="form.deductions"
-                  @change="calculatePay"
-                  step='any'
-                />
-              </div>
+        <div class="grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-2">
+            <label for="region" class="block text-sm font-medium text-gray-700">
+              Standard Hours
+            </label>
+            <div class="mt-1">
+              <input
+                disabled
+                type="number"
+                name="net-pay"
+                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-100"
+                v-model="form.standard_hours"
+              />
             </div>
           </div>
-        </div>
-        <div class="sm:col-span-2">
-              <label
-                for="region"
-                class="block text-sm font-medium text-gray-700"
-              >
-                Overtime
-              </label>
-              <div class="mt-1">
-                <input
-                  disabled
-                  type="number"
-                  name="net-pay"
-                  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-100"
-                  v-model="form.overtime"
-                  
-                />
-              </div>
+          <div class="sm:col-span-2">
+            <label for="region" class="block text-sm font-medium text-gray-700">
+              Overtime Hours
+            </label>
+            <div class="mt-1">
+              <input
+                disabled
+                type="number"
+                name="net-pay"
+                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-slate-100"
+                v-model="form.overtime"
+              />
             </div>
-        
-      <div class="space-y-8 divide-y divide-gray-200">
-        <div class="grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6">
+          </div>
           <div class="sm:col-span-2">
             <label for="region" class="block text-sm font-medium text-gray-700">
               Total Hours
@@ -722,7 +690,47 @@ function storeReport() {
               />
             </div>
           </div>
-      
+        </div>
+      </div>
+
+      <div class="space-y-8 divide-y divide-gray-200">
+        <div class="grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-2">
+            <label for="region" class="block text-sm font-medium text-gray-700">
+              Expenses <span class="font-bold text-green-500">+</span>
+            </label>
+            <div class="mt-1">
+              <input
+                type="number"
+                name="net-pay"
+                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                v-model="form.expenses"
+                @change="calculatePay"
+                step="any"
+              />
+            </div>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="region" class="block text-sm font-medium text-gray-700">
+              Deductions <span class="font-bold text-rose-500">-</span>
+            </label>
+            <div class="mt-1">
+              <input
+                type="number"
+                name="net-pay"
+                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                v-model="form.deductions"
+                @change="calculatePay"
+                step="any"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-8 divide-y divide-gray-200">
+        <div class="grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6">
           <div class="sm:col-span-2">
             <label for="region" class="block text-sm font-medium text-gray-700">
               Gross Pay
@@ -734,7 +742,6 @@ function storeReport() {
                 name="net-pay"
                 class="block w-full border-gray-300 rounded-md shadow-sm bg-slate-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 v-model="form.gross_pay"
-                step='any'
               />
             </div>
           </div>
@@ -742,13 +749,31 @@ function storeReport() {
             <label for="region" class="block text-sm font-medium text-gray-700">
               Payslip
             </label>
-            <div class="mt-1">
-              <input
-                type="file"
-                name="net-pay"
-                class="block w-full border-gray-300 rounded-md shadow-sm bg-slate-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                @input="form.payslip = $event.target.files[0]"
-              />
+            <div class="flex space-x-5">
+              <div>
+                <a
+                  :href="payslip"
+                  target="_blank"
+                  class="inline-flex items-center px-4 py-2 font-bold text-gray-800 bg-gray-300 rounded hover:bg-gray-400"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                  </svg>
+                  <span>Download</span>
+                </a>
+              </div>
+              <div class="mt-1">
+                <input
+                  type="file"
+                  name="net-pay"
+                  class="block w-full border-gray-300 rounded-md shadow-sm bg-slate-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  @input="form.payslip = $event.target.files[0]"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -768,7 +793,7 @@ function storeReport() {
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.net_pay"
                   @change="calculatePay"
-                  step='any'
+                  step="any"
                 />
               </div>
             </div>

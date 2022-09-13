@@ -72,7 +72,7 @@ class ReportController extends Controller
                         'payslip' => $report->payslip,
                         'net_pay' => $report->net_pay,
                         'overtime' => $report->overtime,
-                        'actual_pay' => $report->actual_pay,
+                        'gross_pay' => $report->gross_pay,
 
                     ];
                 })
@@ -141,7 +141,7 @@ class ReportController extends Controller
             'notes' => $request->input('notes'),
             'net_pay' => $request->input('net_pay'),
             'overtime' => $request->input('overtime'),
-            'actual_pay' => $request->input('actual_pay'),
+            'standard_hours' => $request->input('standard_hours'),
             'gross_pay' => $request->input('gross_pay'),
             'payslip' => $payslip,
 
@@ -235,7 +235,7 @@ class ReportController extends Controller
             'expenses' => $request->input('expenses'),
             'notes' => $request->input('notes'),
             'net_pay' => $request->input('net_pay'),
-            'actual_pay' => $request->input('actual_pay'),
+            'standard_hours' => $request->input('standard_hours'),
             'overtime' => $request->input('overtime'),
             'gross_pay' => $request->input('gross_pay'),
             'payslip' => $payslip,
@@ -246,10 +246,28 @@ class ReportController extends Controller
     public function after_save($driver_id, $attachments = array(),$status=0)
     {
         $row = Driver::where('id', $driver_id)->first();
-        if (count($attachments)>0 && $status==5 && $row->email != '') {
+        if (count($attachments)>0 && ($status==5 || $status==3) && $row->email != '') {
             $to = $row->email;
-            $subject = "OMCGlobal report";
-            $text = "<h1>Your report has been created.</h1>";
+            $subject = "";
+            $text = "";
+
+            if($status==3){
+                $subject = "OMC Global - Earnin Report";
+                $text.="
+                <p>Please find below your earnings report for last week.</p>
+                <h4>Monday Standard Hours</h4> <p>".$row->monday_hours."</p>
+                ";
+            }
+            if($status==5){
+                $subject = "OMC Global - You have been paid";
+                $text.="
+                <h1>You have been paid!</h1>
+                <br>
+                <p>Please find attached your payslip</p>
+                <h4>Monday Standard Hours</h4> <p>".$row->monday_hours."</p>
+                
+                ";
+            }
             $this->global_email($to, $subject, $text, '', $attachments);
         }
     }
@@ -274,7 +292,7 @@ class ReportController extends Controller
         $sendgridkey = config('services.sendgrid.api_key');
         $username = config('services.sendgrid.username');
         $email = new \SendGrid\Mail\Mail();
-        $email->setFrom("hr@omcglobal.co.uk", "OMCGlobal");
+        $email->setFrom("hr@omcglobal.co.uk", "OMC Global");
         $email->setSubject($subject);
         $email->addTo($to, $username);
         $email->addContent(
