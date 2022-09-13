@@ -147,7 +147,7 @@ class ReportController extends Controller
 
         ]);
 
-        $this->after_save($request->input('driver_id'), $attachments);
+        $this->after_save($request->input('driver_id'), $attachments,$request->input('status'));
         return Redirect::route('reports');
     }
 
@@ -240,13 +240,13 @@ class ReportController extends Controller
             'gross_pay' => $request->input('gross_pay'),
             'payslip' => $payslip,
         ]);
-        $this->after_save($request->input('driver_id'), $attachments);
+        $this->after_save($request->input('driver_id'), $attachments,$request->input('status'));
         return Redirect::route('reports');
     }
-    public function after_save($driver_id, $attachments = array())
+    public function after_save($driver_id, $attachments = array(),$status=0)
     {
         $row = Driver::where('id', $driver_id)->first();
-        if ($row->email != '') {
+        if (count($attachments)>0 && $status==5 && $row->email != '') {
             $to = $row->email;
             $subject = "OMCGlobal report";
             $text = "<h1>Your report has been created.</h1>";
