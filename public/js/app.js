@@ -23609,7 +23609,8 @@ __webpack_require__.r(__webpack_exports__);
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__.useForm)({
       name: props.driver.name,
       email: props.driver.email,
-      phone: props.driver.phone
+      phone: props.driver.phone,
+      type: props.driver.type
     });
 
     function updateReport() {
@@ -23617,7 +23618,8 @@ __webpack_require__.r(__webpack_exports__);
         _method: "put",
         name: form.name,
         email: form.email,
-        phone: form.phone
+        phone: form.phone,
+        type: form.type
       });
     }
 
@@ -28059,8 +28061,32 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_14 = {
   "class": "mt-1"
 };
+var _hoisted_15 = {
+  "class": "sm:col-span-3"
+};
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "location",
+  "class": "block text-sm font-medium text-gray-700"
+}, "Type", -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "1"
+}, "Employed", -1
+/* HOISTED */
+);
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "2"
+}, "Self employed", -1
+/* HOISTED */
+);
+
+var _hoisted_19 = [_hoisted_17, _hoisted_18];
+
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "pt-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex justify-end"
@@ -28109,7 +28135,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         placeholder: "Enter phone no"
       }, null, 512
       /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.phone]])])])])])]), _hoisted_15], 40
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.phone]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+        id: "Type",
+        name: "Type",
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+          return $setup.form.type = $event;
+        }),
+        "class": "block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      }, _hoisted_19, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.type]])])])])])]), _hoisted_20], 40
       /* PROPS, HYDRATE_EVENTS */
       , _hoisted_1)];
     }),

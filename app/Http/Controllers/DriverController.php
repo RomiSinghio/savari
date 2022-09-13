@@ -111,6 +111,7 @@ class DriverController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
+            'type' => $request->input('type')
         ]);
         return Redirect::route('drivers');        
     }

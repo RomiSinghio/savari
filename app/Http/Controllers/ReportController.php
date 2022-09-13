@@ -252,10 +252,10 @@ class ReportController extends Controller
             $text = "";
 
             if($status==3){
-                $subject = "OMC Global - Earnin Report";
+                $subject = "OMC Global - Earnings Report";
                 $text.="
                 <p>Please find below your earnings report for last week.</p>
-                <h4>Monday Standard Hours</h4> <p>".$row->monday_hours."</p>
+                <h4>Monday Standard Hours</h4> 
                 ";
             }
             if($status==5){
@@ -264,7 +264,7 @@ class ReportController extends Controller
                 <h1>You have been paid!</h1>
                 <br>
                 <p>Please find attached your payslip</p>
-                <h4>Monday Standard Hours</h4> <p>".$row->monday_hours."</p>
+                <h4>Monday Standard Hours</h4>
                 
                 ";
             }

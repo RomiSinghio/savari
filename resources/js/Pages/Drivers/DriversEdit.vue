@@ -12,7 +12,8 @@ const props = defineProps({
 const form = useForm({ 
   name: props.driver.name,
   email: props.driver.email,
-  phone: props.driver.phone
+  phone: props.driver.phone,
+  type: props.driver.type
 });
 
 function updateReport() {
@@ -21,6 +22,7 @@ function updateReport() {
     name: form.name,
     email: form.email,
     phone: form.phone,
+    type: form.type
     
   });
 }
@@ -88,7 +90,24 @@ function updateReport() {
                 />
               </div>
             </div>
-
+            <div class="sm:col-span-3">
+              <div>
+                <label
+                  for="location"
+                  class="block text-sm font-medium text-gray-700"
+                  >Type</label
+                >
+                <select
+                  id="Type"
+                  name="Type"
+                  v-model="form.type"
+                  class="block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="1">Employed</option>
+                  <option value="2">Self employed</option>
+                </select>
+              </div>
+            </div>
 
 
           </div>
