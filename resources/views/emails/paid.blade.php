@@ -1,10 +1,6 @@
 @component('mail::message')
-Hi {{ $report->driver->name }},
-<br>
-Please check below your hours that you worked.
-<br> <br>
-# Employee Hour Check
- <br>
+# Hi {{ $report->driver->name }}, You have been paid £{{ $report->net_pay  }}
+Please find payslip attached and your final report below. <br>
 For reference: 
 <br>
 Standard = Normal Working Hours (£14 Weekday / £15 Weekend) <br>

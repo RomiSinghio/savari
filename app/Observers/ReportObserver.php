@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Report;
 use App\Mail\EmployeeCheckMail;
+use App\Mail\PaidMail;
 use Illuminate\Support\Facades\Mail;
 
 class ReportObserver
@@ -16,8 +17,12 @@ class ReportObserver
      */
     public function created(Report $report)
     {
-        if ($report->status == 'Employee Check') {
+        if ($report->status == 3) { // Employee check
             Mail::to($report->driver->email)->send(new EmployeeCheckMail($report));
+        }
+
+        if ($report->status == 5) { // Paid
+            Mail::to($report->driver->email)->send(new PaidMail($report));
         }
     }
 
@@ -29,8 +34,11 @@ class ReportObserver
      */
     public function updated(Report $report)
     {
-        if ($report->status == 'Employee Check') {
+        if ($report->status == 3) { // Employee check
             Mail::to($report->driver->email)->send(new EmployeeCheckMail($report));
+        }
+        if ($report->status == 5) { // Paid
+            Mail::to($report->driver->email)->send(new PaidMail($report));
         }
     }
 

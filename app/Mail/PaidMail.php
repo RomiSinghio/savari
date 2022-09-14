@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmployeeCheckMail extends Mailable
+class PaidMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -33,12 +33,14 @@ class EmployeeCheckMail extends Mailable
      */
     public function build()
     {
-
-        
         return $this
-        ->subject("Hours Report - OMC Global" )
+        ->subject("You have been paid - OMC Global" )
         ->replyTo("hr@omcglobal.co.uk")
         ->from("hr@omcglobal.co.uk")
-        ->markdown('emails.employee-check');
+        ->markdown('emails.paid');
+        if ($this->report->payslip) {
+            $this->attach($this->report->payslip->path);
+        }
+       
     }
 }

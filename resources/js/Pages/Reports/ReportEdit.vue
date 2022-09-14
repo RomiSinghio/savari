@@ -144,7 +144,7 @@ const calculatePay = () => {
     form.fuel_allowance +
     form.overtime * 1;
 
-    form.standard_hours = form.total_hours - form.overtime;
+  form.standard_hours = form.total_hours - form.overtime;
 };
 </script>
   
@@ -796,11 +796,21 @@ const calculatePay = () => {
               Payslip
             </label>
             <div class="flex space-x-5">
+              <div class="mt-1">
+          
+                <input
+                  type="file"
+                  name="net-pay"
+                  class="block w-full my-auto border-gray-300 rounded-md shadow-sm bg-slate-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  @input="form.payslip = $event.target.files[0]"
+                />
+              </div>
               <div>
                 <a
                   :href="payslip"
                   target="_blank"
                   class="inline-flex items-center px-4 py-2 font-bold text-gray-800 bg-gray-300 rounded hover:bg-gray-400"
+                  v-if="form.payslip"
                 >
                   <svg
                     class="w-4 h-4 mr-2 fill-current"
@@ -809,16 +819,8 @@ const calculatePay = () => {
                   >
                     <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
                   </svg>
-                  <span>Download</span>
+                  <span>View</span>
                 </a>
-              </div>
-              <div class="mt-1">
-                <input
-                  type="file"
-                  name="net-pay"
-                  class="block w-full border-gray-300 rounded-md shadow-sm bg-slate-100 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  @input="form.payslip = $event.target.files[0]"
-                />
               </div>
             </div>
           </div>
