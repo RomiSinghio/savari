@@ -147,7 +147,7 @@ class ReportController extends Controller
 
         ]);
 
-     
+        $this->after_save($request->input('driver_id'), $attachments,$request->input('status'));
         return Redirect::route('reports');
     }
 
@@ -240,11 +240,37 @@ class ReportController extends Controller
             'gross_pay' => $request->input('gross_pay'),
             'payslip' => $payslip,
         ]);
-
+        $this->after_save($request->input('driver_id'), $attachments,$request->input('status'));
         return Redirect::route('reports');
     }
-   
-    
+    public function after_save($driver_id, $attachments = array(),$status=0)
+    {
+        $row = Driver::where('id', $driver_id)->first();
+        if (count($attachments)>0 && ($status==5 || $status==3) && $row->email != '') {
+            $to = $row->email;
+            $subject = "";
+            $text = "";
+
+            if($status==3){
+                $subject = "OMC Global - Earnings Report";
+                $text.="
+                <p>Please find below your earnings report for last week.</p>
+                <h4>Monday Standard Hours</h4> 
+                ";
+            }
+            if($status==5){
+                $subject = "OMC Global - You have been paid";
+                $text.="
+                <h1>You have been paid!</h1>
+                <br>
+                <p>Please find attached your payslip</p>
+                <h4>Monday Standard Hours</h4>
+                
+                ";
+            }
+            $this->global_email($to, $subject, $text, '', $attachments);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -258,5 +284,40 @@ class ReportController extends Controller
     }
 
 
-   
+    public function global_email($to, $subject, $text, $username = '', $attachments = array())
+    {
+        if ($to == '') {
+            return false;
+        }
+        $sendgridkey = config('services.sendgrid.api_key');
+        $username = config('services.sendgrid.username');
+        $email = new \SendGrid\Mail\Mail();
+        $email->setFrom("hr@omcglobal.co.uk", "OMC Global");
+        $email->setSubject($subject);
+        $email->addTo($to, $username);
+        $email->addContent(
+            "text/html",
+            $text
+        );
+
+        foreach ($attachments as $at) {
+            $file_encoded = base64_encode(file_get_contents($at[0]));
+            $email->addAttachment(
+                $file_encoded,
+                $at[1],
+                $at[2],
+                "attachment"
+            );
+        }
+        $sendgrid = new \SendGrid(($sendgridkey));
+        try {
+            if ($sendgrid->send($email)) {
+
+             //   echo  1;
+              //  exit;
+            }
+        } catch (Exception $e) {
+          //  echo 'Caught exception: ' . $e->getMessage() . "\n";
+        }
+    }
 }

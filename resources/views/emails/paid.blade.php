@@ -4,7 +4,7 @@ Please find payslip attached and your final report below. <br>
 For reference: 
 <br>
 Standard = Normal Working Hours (£14 Weekday / £15 Weekend) <br>
-Bonus = Non sociable hours (£15 Weekday / £16 Weekend) <br>
+Bonus = Non sociable hours / 22:00 - 04:00 (£15 Weekday / £16 Weekend) <br>
 Fixed = Jobs paid in fixed amounts <br>
 Overtime = If you have worked over 39 hours in a week you will be paid an additional £1 per hour. <br>
 
