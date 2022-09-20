@@ -248,6 +248,11 @@ class ReportController extends Controller
             $file_name = Storage::url($file);
         }
 
+        if ($report->payslip != '') {
+            $report->status = 6;
+            $report->save();
+        }
+        
 
         return Inertia::render('Reports/ReportEdit', [
             'drivers' => Driver::pluck('name', 'id'),
@@ -273,10 +278,7 @@ class ReportController extends Controller
             Storage::delete('public/' . $report->payslip);
             $payslip = $request->file('payslip')->store('payslips');
         }
-        if ($report->payslip != '') {
-            $report->status = 6;
-            $report->save();
-        }
+     
 
 
         $report->update([
