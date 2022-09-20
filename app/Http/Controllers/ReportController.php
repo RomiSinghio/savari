@@ -252,7 +252,7 @@ class ReportController extends Controller
             $report->status = 6;
             $report->save();
         }
-        
+
 
         return Inertia::render('Reports/ReportEdit', [
             'drivers' => Driver::pluck('name', 'id'),
@@ -284,6 +284,7 @@ class ReportController extends Controller
         $report->update([
             'driver_id' => $request->input('driver_id'),
             'status' => $request->input('status') ?? null,
+            'week_no' => $request->input('week_no'),
             'monday_hours' => $request->input('monday_hours'),
             'tuesday_hours' => $request->input('tuesday_hours'),
             'wednesday_hours' => $request->input('wednesday_hours'),
