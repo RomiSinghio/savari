@@ -22,6 +22,7 @@ class Report extends Model
         '2' => 'Needs Approval',
         '3' => 'Employee Check',
         '4' => 'Ready for Payroll',
+        '6' => 'Payroll Done',
         '5' => 'Paid',
     );
 

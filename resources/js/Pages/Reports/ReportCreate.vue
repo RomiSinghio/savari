@@ -7,6 +7,8 @@ import { useForm } from "@inertiajs/inertia-vue3";
 const props = defineProps({
   reports: Array,
   drivers: Array,
+  weeks: Array,
+  current_week: String,
 });
 
 const form = useForm({
@@ -43,6 +45,7 @@ const form = useForm({
   expenses: null,
   gross_pay: null,
   status: 1,
+  week_no:props.current_week,
   payslip: null,
   daily_rate: {
     monday: 14,
@@ -116,7 +119,7 @@ function storeReport() {
             </h3>
           </div>
           <div class="grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-7">
-            <div class="sm:col-span-4">
+            <div class="sm:col-span-3">
               <label
                 for="country"
                 class="block text-sm font-medium text-gray-700"
@@ -144,7 +147,7 @@ function storeReport() {
               </div>
             </div>
 
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-2">
               <div>
                 <label
                   for="location"
@@ -162,6 +165,29 @@ function storeReport() {
                   <option value="3">Employee Check</option>
                   <option value="4">Ready for Payroll</option>
                   <option value="5">Paid</option>
+                </select>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <div>
+                <label
+                  for="location"
+                  class="block text-sm font-medium text-gray-700"
+                  >Week no</label
+                >
+                <select
+                  id="week_no"
+                  name="week_no"
+                  v-model="form.week_no"
+                  class="block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option
+                    v-for="(week_name,week_no) in weeks"
+                    v-bind:key="week_no"
+                    v-bind:value="week_no"
+                  >
+                    {{ week_name }}
+                  </option>
                 </select>
               </div>
             </div>

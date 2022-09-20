@@ -37,7 +37,7 @@ class ReportObserver
         if ($report->status == 3) { // Employee check
             Mail::to($report->driver->email)->send(new EmployeeCheckMail($report));
         }
-        if ($report->status == 5) { // Paid
+        if ($report->status == 5)  { // Paid
             Mail::to($report->driver->email)->send(new PaidMail($report));
         }
     }

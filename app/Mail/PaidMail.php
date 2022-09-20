@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Validation\Rules\Exists;
 
 class PaidMail extends Mailable
 {
@@ -22,7 +23,6 @@ class PaidMail extends Mailable
     public function __construct(Report $report)
     {
         $this->report = $report;
-        
     }
 
 
@@ -34,13 +34,11 @@ class PaidMail extends Mailable
     public function build()
     {
         return $this
-        ->subject("You have been paid - OMC Global" )
-        ->replyTo("hr@omcglobal.co.uk")
-        ->from("hr@omcglobal.co.uk")
-        ->markdown('emails.paid');
-        if ($this->report->payslip) {
-            $this->attach($this->report->payslip->path);
-        }
-       
+            ->subject("You have been paid - OMC Global")
+            ->replyTo("hr@omcglobal.co.uk")
+            ->from("hr@omcglobal.co.uk")
+            ->markdown('emails.paid')
+            ->attachFromStorage($this->report->paylsip);
+
     }
 }

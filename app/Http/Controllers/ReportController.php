@@ -36,6 +36,7 @@ class ReportController extends Controller
                     $status[2] = "Needs Approval";
                     $status[3] = "Employee Check";
                     $status[4] = "Ready for Payroll";
+                    $status[6] = "Payroll Done"; 
                     $status[5] = "Paid";
                     $report_status = $status[$report->status];
                     // $report->status
@@ -49,6 +50,7 @@ class ReportController extends Controller
                         'name' => $report->driver->name ?? 'no name',
                         'type'  =>  $driver_type,
                         'status' => $report_status,
+                        'week_no' => $report->week_no,
                         'monday_hours' => $report->monday_hours,
                         'tuesday_hours' => $report->tuesday_hours,
                         'wednesday_hours' => $report->wednesday_hours,
@@ -75,10 +77,71 @@ class ReportController extends Controller
                         'gross_pay' => $report->gross_pay,
 
                     ];
-                })
+                }),
+                'weeks' => $this->weeks(),
+                'current_week'=>1
         ]);
     }
 
+
+    public function filter($week_no)
+    {
+        return Inertia::render('Reports/ReportsIndex', [
+            'reports' => Report::with('driver')
+                ->orderBy('created_at', 'desc')
+                ->where('week_no',$week_no)
+                ->get()->map(function ($report) {
+                    $status = array();
+                    $status[1] = "New";
+                    $status[2] = "Needs Approval";
+                    $status[3] = "Employee Check";
+                    $status[4] = "Ready for Payroll";
+                    $status[6] = "Payroll Done"; 
+                    $status[5] = "Paid";
+                    $report_status = $status[$report->status];
+                    // $report->status
+
+                    $type = array();
+                    $type[1] = "Employeed";
+                    $type[2] = "Self Employeed";
+                    $driver_type = $type[$report->driver->type];
+                    return [
+                        'id' => $report->id,
+                        'name' => $report->driver->name ?? 'no name',
+                        'type'  =>  $driver_type,
+                        'status' => $report_status,
+                        'week_no' => $report->week_no,
+                        'monday_hours' => $report->monday_hours,
+                        'tuesday_hours' => $report->tuesday_hours,
+                        'wednesday_hours' => $report->wednesday_hours,
+                        'thursday_hours' => $report->thursday_hours,
+                        'friday_hours' => $report->friday_hours,
+                        'saturday_hours' => $report->saturday_hours,
+                        'sunday_hours' => $report->sunday_hours,
+                        'total_hours' => $report->total_hours,
+                        'monday_fixed' => $report->monday_fixed,
+                        'tuesday_fixed' => $report->tuesday_fixed,
+                        'wednesday_fixed' => $report->wednesday_fixed,
+                        'thursday_fixed' => $report->thursday_fixed,
+                        'friday_fixed' => $report->friday_fixed,
+                        'saturday_fixed' => $report->saturday_fixed,
+                        'sunday_fixed' => $report->sunday_fixed,
+                        'food_allowance' => $report->food_allowance,
+                        'fuel_allowance' => $report->fuel_allowance,
+                        'deductions' => $report->deductions,
+                        'expenses' => $report->expenses,
+                        'notes' => $report->notes,
+                        'payslip' => $report->payslip,
+                        'net_pay' => $report->net_pay,
+                        'overtime' => $report->overtime,
+                        'gross_pay' => $report->gross_pay,
+
+                    ];
+                }),
+                'weeks' => $this->weeks(),
+                'current_week'=>$week_no
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -88,6 +151,8 @@ class ReportController extends Controller
     {
         return Inertia::render('Reports/ReportCreate', [
             'drivers' => Driver::pluck('name', 'id'),
+            'weeks' => $this->weeks(),
+            'current_week' => date("W"),
         ]);
     }
 
@@ -101,17 +166,20 @@ class ReportController extends Controller
 
     public function store(Request $request)
     {
-        $attachments = array();
-        $payslip = $request->payslip;
-        if ($request->file('payslip')) {
-            $payslip = $request->file('payslip')->store('payslips', 'public');
-            $attachments[] = array(
-                "storage/" . $payslip, "application/pdf", "driver_report.pdf"
-            );
-        }
+        if ($request->hasFile('payslip')){
+            
+ 
+        $extension = $request->file('payslip')->extension();
+        $path = Storage::disk('spaces')->put('payslips', $request->file('payslip'), $request->file('payslip'), time() . '.' . $extension);
+        $payslip = $path;
+    }
+    else{
+        $payslip = null;
+    }
         Report::create([
             'driver_id' => $request->input('driver_id'),
             'status' => $request->input('status'),
+            'week_no' => $request->input('week_no'),
             'monday_hours' => $request->input('monday_hours'),
             'tuesday_hours' => $request->input('tuesday_hours'),
             'wednesday_hours' => $request->input('wednesday_hours'),
@@ -147,7 +215,7 @@ class ReportController extends Controller
 
         ]);
 
-        $this->after_save($request->input('driver_id'), $attachments,$request->input('status'));
+
         return Redirect::route('reports');
     }
 
@@ -173,15 +241,19 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
+
         $file_name = "";
-        $file = "public/" . $report->payslip;
-        if (Storage::exists($file) && $report->payslip != '') {
+        $file = $report->payslip;
+        if ($file != null){
             $file_name = Storage::url($file);
         }
+
+
         return Inertia::render('Reports/ReportEdit', [
             'drivers' => Driver::pluck('name', 'id'),
             'report' => $report,
             'payslip' => $file_name,
+            'weeks' => $this->weeks(),
         ]);
     }
 
@@ -199,11 +271,14 @@ class ReportController extends Controller
 
         if ($request->file('payslip')) {
             Storage::delete('public/' . $report->payslip);
-            $payslip = $request->file('payslip')->store('payslips', 'public');
-            $attachments[] = array(
-                "storage/" . $payslip, "application/pdf", "driver_report.pdf"
-            );
+            $payslip = $request->file('payslip')->store('payslips');
         }
+        if ($report->payslip != '') {
+            $report->status = 6;
+            $report->save();
+        }
+
+
         $report->update([
             'driver_id' => $request->input('driver_id'),
             'status' => $request->input('status') ?? null,
@@ -240,37 +315,9 @@ class ReportController extends Controller
             'gross_pay' => $request->input('gross_pay'),
             'payslip' => $payslip,
         ]);
-        $this->after_save($request->input('driver_id'), $attachments,$request->input('status'));
         return Redirect::route('reports');
     }
-    public function after_save($driver_id, $attachments = array(),$status=0)
-    {
-        $row = Driver::where('id', $driver_id)->first();
-        if (count($attachments)>0 && ($status==5 || $status==3) && $row->email != '') {
-            $to = $row->email;
-            $subject = "";
-            $text = "";
 
-            if($status==3){
-                $subject = "OMC Global - Earnings Report";
-                $text.="
-                <p>Please find below your earnings report for last week.</p>
-                <h4>Monday Standard Hours</h4> 
-                ";
-            }
-            if($status==5){
-                $subject = "OMC Global - You have been paid";
-                $text.="
-                <h1>You have been paid!</h1>
-                <br>
-                <p>Please find attached your payslip</p>
-                <h4>Monday Standard Hours</h4>
-                
-                ";
-            }
-            $this->global_email($to, $subject, $text, '', $attachments);
-        }
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -283,41 +330,13 @@ class ReportController extends Controller
         //
     }
 
-
-    public function global_email($to, $subject, $text, $username = '', $attachments = array())
-    {
-        if ($to == '') {
-            return false;
+    public function weeks(){
+        $weeks=array();
+        for($i=1;$i<=52;$i++){
+            $weeks[$i]="Week ".$i;
         }
-        $sendgridkey = config('services.sendgrid.api_key');
-        $username = config('services.sendgrid.username');
-        $email = new \SendGrid\Mail\Mail();
-        $email->setFrom("hr@omcglobal.co.uk", "OMC Global");
-        $email->setSubject($subject);
-        $email->addTo($to, $username);
-        $email->addContent(
-            "text/html",
-            $text
-        );
-
-        foreach ($attachments as $at) {
-            $file_encoded = base64_encode(file_get_contents($at[0]));
-            $email->addAttachment(
-                $file_encoded,
-                $at[1],
-                $at[2],
-                "attachment"
-            );
-        }
-        $sendgrid = new \SendGrid(($sendgridkey));
-        try {
-            if ($sendgrid->send($email)) {
-
-             //   echo  1;
-              //  exit;
-            }
-        } catch (Exception $e) {
-          //  echo 'Caught exception: ' . $e->getMessage() . "\n";
-        }
+        return $weeks;
     }
 }
+
+

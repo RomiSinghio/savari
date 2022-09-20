@@ -1,11 +1,21 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
   reports: Array,
+  weeks: Array,
+  current_week: String,
 });
+const form = useForm({
+  week_no:props.current_week,
+});
+function filter_week(week_no){
+  var week_no=document.getElementById("week_no").value;
+  window.location.href="/reports/filter/"+week_no;
+}
 </script>
 
 <template>
@@ -25,6 +35,26 @@ const props = defineProps({
                   A list of all the reports.
                 </p>
               </div>
+              <div class="sm:col-span-2">
+                <div>
+                  
+                  <select
+                    id="week_no"
+                    name="week_no"
+                    @change="filter_week"
+                   v-model="form.week_no"
+                    class="block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option
+                      v-for="(week_name,week_no) in weeks"
+                      v-bind:key="week_no"
+                      v-bind:value="week_no"
+                    >
+                      {{ week_name }}
+                    </option>
+                  </select>
+                </div>
+              </div>              
               <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                 <Link
                   as="button"

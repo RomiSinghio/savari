@@ -41,6 +41,7 @@ Route::middleware([
     Route::post('/reports', [ReportController::class, 'store'])->name('store-report');
     Route::get('/report/{report}/edit', [ReportController::class, 'edit'])->name('edit-report');
     Route::put('/report/{report}', [ReportController::class, 'update'])->name('update-report');
+    Route::get('/reports/filter/{week_no}', [ReportController::class, 'filter'])->name('reports-filter');
 
 
     Route::get('/weeks', [WeekController::class, 'index'])->name('weeks');
