@@ -250,7 +250,6 @@ class ReportController extends Controller
 
         if ($report->payslip != '') {
             $report->status = 6;
-            $report->save();
         }
 
 

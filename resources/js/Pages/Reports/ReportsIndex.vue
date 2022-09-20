@@ -90,6 +90,12 @@ function filter_week(week_no){
                           </th>
                           <th
                             scope="col"
+                            class="py-3 pl-4 pr-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase sm:pl-6"
+                          >
+                            Week Number
+                          </th>
+                          <th
+                            scope="col"
                             class="px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase "
                           >
                             Total Hours
@@ -134,6 +140,11 @@ function filter_week(week_no){
                             {{ report.type }}
                           </td>
                           <td
+                            class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6"
+                          >
+                            Week {{ report.week_no }}
+                          </td>
+                          <td
                             class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
                           >
                             {{ report.total_hours }} Hours
@@ -146,7 +157,7 @@ function filter_week(week_no){
                           <td
                             class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
                           >
-                          £{{ report.net_pay ?? '0' }}
+                          £{{ report.net_pay ?? '0' }} 
                           </td>
 
                           <td
