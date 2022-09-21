@@ -14,6 +14,7 @@ const form = useForm({
   email: "",
   phone: "",
   type: "",
+  contract_hours: "",
 });
 
 function storeReport() {
@@ -100,7 +101,21 @@ function storeReport() {
                 </select>
               </div>
             </div>
-
+            <div class="sm:col-span-4">
+              <label
+                class="block text-sm font-medium text-gray-700"
+              >
+                Contracted Hours
+              </label>
+              <div class="mt-1">
+                <input
+                  type="text"
+                  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  v-model="form.contract_hours"
+                  placeholder="Enter hours"
+                />
+              </div>
+            </div>
 
           </div>
         </div>

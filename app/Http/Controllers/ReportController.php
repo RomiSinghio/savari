@@ -29,6 +29,7 @@ class ReportController extends Controller
     {
         return Inertia::render('Reports/ReportsIndex', [
             'reports' => Report::with('driver')
+                ->where("status", "!=", 5)
                 ->orderBy('created_at', 'desc')
                 ->get()->map(function ($report) {
                     $status = array();
@@ -36,7 +37,7 @@ class ReportController extends Controller
                     $status[2] = "Needs Approval";
                     $status[3] = "Employee Check";
                     $status[4] = "Ready for Payroll";
-                    $status[6] = "Payroll Done"; 
+                    $status[6] = "Payroll Done";
                     $status[5] = "Paid";
                     $report_status = $status[$report->status];
                     // $report->status
@@ -78,8 +79,8 @@ class ReportController extends Controller
 
                     ];
                 }),
-                'weeks' => $this->weeks(),
-                'current_week'=>1
+            'weeks' => $this->weeks(),
+            'current_week' => 1
         ]);
     }
 
@@ -89,14 +90,14 @@ class ReportController extends Controller
         return Inertia::render('Reports/ReportsIndex', [
             'reports' => Report::with('driver')
                 ->orderBy('created_at', 'desc')
-                ->where('week_no',$week_no)
+                ->where('week_no', $week_no)
                 ->get()->map(function ($report) {
                     $status = array();
                     $status[1] = "New";
                     $status[2] = "Needs Approval";
                     $status[3] = "Employee Check";
                     $status[4] = "Ready for Payroll";
-                    $status[6] = "Payroll Done"; 
+                    $status[6] = "Payroll Done";
                     $status[5] = "Paid";
                     $report_status = $status[$report->status];
                     // $report->status
@@ -138,8 +139,8 @@ class ReportController extends Controller
 
                     ];
                 }),
-                'weeks' => $this->weeks(),
-                'current_week'=>$week_no
+            'weeks' => $this->weeks(),
+            'current_week' => $week_no
         ]);
     }
     /**
@@ -166,16 +167,15 @@ class ReportController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->hasFile('payslip')){
-            
- 
-        $extension = $request->file('payslip')->extension();
-        $path = Storage::disk('spaces')->put('payslips', $request->file('payslip'), $request->file('payslip'), time() . '.' . $extension);
-        $payslip = $path;
-    }
-    else{
-        $payslip = null;
-    }
+        if ($request->hasFile('payslip')) {
+
+
+            $extension = $request->file('payslip')->extension();
+            $path = Storage::disk('spaces')->put('payslips', $request->file('payslip'), $request->file('payslip'), time() . '.' . $extension);
+            $payslip = $path;
+        } else {
+            $payslip = null;
+        }
         Report::create([
             'driver_id' => $request->input('driver_id'),
             'status' => $request->input('status'),
@@ -244,17 +244,15 @@ class ReportController extends Controller
 
         $file_name = "";
         $file = $report->payslip;
-        if ($file != null){
+        if ($file != null) {
             $file_name = Storage::url($file);
         }
 
-        if ($report->payslip != '') {
-            $report->status = 6;
-        }
+
 
 
         return Inertia::render('Reports/ReportEdit', [
-            'drivers' => Driver::pluck('name', 'id'),
+            'drivers' => Driver::pluck('name', 'id', 'contract_hours'),
             'report' => $report,
             'payslip' => $file_name,
             'weeks' => $this->weeks(),
@@ -277,7 +275,10 @@ class ReportController extends Controller
             Storage::delete('public/' . $report->payslip);
             $payslip = $request->file('payslip')->store('payslips');
         }
-     
+        if ($report->payslip != '') {
+            $report->status = 6;
+            $report->save();
+        }
 
 
         $report->update([
@@ -332,13 +333,12 @@ class ReportController extends Controller
         //
     }
 
-    public function weeks(){
-        $weeks=array();
-        for($i=1;$i<=52;$i++){
-            $weeks[$i]="Week ".$i;
+    public function weeks()
+    {
+        $weeks = array();
+        for ($i = 1; $i <= 52; $i++) {
+            $weeks[$i] = "Week " . $i;
         }
         return $weeks;
     }
 }
-
-

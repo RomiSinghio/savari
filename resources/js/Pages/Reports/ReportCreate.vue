@@ -141,10 +141,11 @@ function storeReport() {
                     v-bind:key="key"
                     v-bind:value="key"
                   >
-                    {{ driver }}
+                    {{ driver }} 
                   </option>
                 </select>
               </div>
+      
             </div>
 
             <div class="sm:col-span-2">

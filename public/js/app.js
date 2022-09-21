@@ -23552,7 +23552,8 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       email: "",
       phone: "",
-      type: ""
+      type: "",
+      contract_hours: ""
     });
 
     function storeReport() {
@@ -23610,7 +23611,8 @@ __webpack_require__.r(__webpack_exports__);
       name: props.driver.name,
       email: props.driver.email,
       phone: props.driver.phone,
-      type: props.driver.type
+      type: props.driver.type,
+      contract_hours: props.driver.contract_hours
     });
 
     function updateReport() {
@@ -23619,7 +23621,8 @@ __webpack_require__.r(__webpack_exports__);
         name: form.name,
         email: form.email,
         phone: form.phone,
-        type: form.type
+        type: form.type,
+        contract_hours: form.contract_hours
       });
     }
 
@@ -27943,8 +27946,21 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_19 = [_hoisted_17, _hoisted_18];
+var _hoisted_20 = {
+  "class": "sm:col-span-4"
+};
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "block text-sm font-medium text-gray-700"
+}, " Contracted Hours ", -1
+/* HOISTED */
+);
+
+var _hoisted_22 = {
+  "class": "mt-1"
+};
+
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "pt-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex justify-end"
@@ -28002,7 +28018,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       }, _hoisted_19, 512
       /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.type]])])])])])]), _hoisted_20], 40
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.type]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        type: "text",
+        "class": "block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+          return $setup.form.contract_hours = $event;
+        }),
+        placeholder: "Enter hours"
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.contract_hours]])])])])])]), _hoisted_23], 40
       /* PROPS, HYDRATE_EVENTS */
       , _hoisted_1)];
     }),
@@ -28108,8 +28133,21 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_19 = [_hoisted_17, _hoisted_18];
+var _hoisted_20 = {
+  "class": "sm:col-span-4"
+};
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "block text-sm font-medium text-gray-700"
+}, " Contracted Hours ", -1
+/* HOISTED */
+);
+
+var _hoisted_22 = {
+  "class": "mt-1"
+};
+
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "pt-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex justify-end"
@@ -28167,7 +28205,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       }, _hoisted_19, 512
       /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.type]])])])])])]), _hoisted_20], 40
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.type]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        type: "text",
+        "class": "block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+          return $setup.form.contract_hours = $event;
+        }),
+        placeholder: "Enter hours"
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.contract_hours]])])])])])]), _hoisted_23], 40
       /* PROPS, HYDRATE_EVENTS */
       , _hoisted_1)];
     }),
