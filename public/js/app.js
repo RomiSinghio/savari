@@ -24417,6 +24417,7 @@ __webpack_require__.r(__webpack_exports__);
       deductions: null,
       expenses: null,
       gross_pay: null,
+      actual_pay: null,
       status: 1,
       week_no: props.current_week,
       payslip: null,
@@ -24442,6 +24443,7 @@ __webpack_require__.r(__webpack_exports__);
       form.overtime = overtime;
       form.gross_pay = form.monday_hours * form.daily_rate.monday + form.tuesday_hours * form.daily_rate.tuesday + form.wednesday_hours * form.daily_rate.wednesday + form.thursday_hours * form.daily_rate.thursday + form.friday_hours * form.daily_rate.friday + form.saturday_hours * form.daily_rate.saturday + form.sunday_hours * form.daily_rate.sunday + 15 * form.monday_bonus + 15 * form.tuesday_bonus + 15 * form.wednesday_bonus + 15 * form.thursday_bonus + 15 * form.friday_bonus + 16 * form.saturday_bonus + 16 * form.sunday_bonus + form.monday_fixed + form.tuesday_fixed + form.wednesday_fixed + form.thursday_fixed + form.friday_fixed + form.saturday_fixed + form.sunday_fixed + form.food_allowance + form.fuel_allowance + form.overtime * 1;
       form.standard_hours = form.total_hours - form.overtime;
+      form.actual_pay = form.gross_pay - form.deductions + form.expenses;
     };
 
     function storeReport() {
@@ -24584,6 +24586,7 @@ __webpack_require__.r(__webpack_exports__);
         deductions: form.deductions,
         expenses: form.expenses,
         gross_pay: form.gross_pay,
+        actual_pay: form.actual_pay,
         payslip: form.payslip
       });
     }
@@ -24599,6 +24602,7 @@ __webpack_require__.r(__webpack_exports__);
       form.overtime = overtime;
       form.gross_pay = form.monday_hours * form.daily_rate.monday + form.tuesday_hours * form.daily_rate.tuesday + form.wednesday_hours * form.daily_rate.wednesday + form.thursday_hours * form.daily_rate.thursday + form.friday_hours * form.daily_rate.friday + form.saturday_hours * form.daily_rate.saturday + form.sunday_hours * form.daily_rate.sunday + 15 * form.monday_bonus + 15 * form.tuesday_bonus + 15 * form.wednesday_bonus + 15 * form.thursday_bonus + 15 * form.friday_bonus + 16 * form.saturday_bonus + 16 * form.sunday_bonus + form.monday_fixed + form.tuesday_fixed + form.wednesday_fixed + form.thursday_fixed + form.friday_fixed + form.saturday_fixed + form.sunday_fixed + form.food_allowance + form.fuel_allowance + form.overtime * 1;
       form.standard_hours = form.total_hours - form.overtime;
+      form.actual_pay = form.gross_pay - form.deductions - form.expenses;
     };
 
     var __returned__ = {
@@ -30169,8 +30173,22 @@ var _hoisted_129 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElemen
 var _hoisted_130 = {
   "class": "mt-1"
 };
+var _hoisted_131 = {
+  "class": "sm:col-span-2"
+};
 
-var _hoisted_131 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_132 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "region",
+  "class": "block text-sm font-medium text-gray-700"
+}, " Total Pay ", -1
+/* HOISTED */
+);
+
+var _hoisted_133 = {
+  "class": "mt-1"
+};
+
+var _hoisted_134 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "pt-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex justify-end"
@@ -30643,7 +30661,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         step: "any"
       }, null, 544
       /* HYDRATE_EVENTS, NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.net_pay]])])])])])]), _hoisted_131], 40
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.net_pay]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_131, [_hoisted_132, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_133, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        type: "number",
+        name: "net-pay",
+        disabled: "",
+        "class": "block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+        "onUpdate:modelValue": _cache[35] || (_cache[35] = function ($event) {
+          return $setup.form.actual_pay = $event;
+        }),
+        onChange: $setup.calculatePay,
+        step: "any"
+      }, null, 544
+      /* HYDRATE_EVENTS, NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.actual_pay]])])])])])]), _hoisted_134], 40
       /* PROPS, HYDRATE_EVENTS */
       , _hoisted_1)];
     }),
@@ -31300,8 +31330,22 @@ var _hoisted_129 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElemen
 var _hoisted_130 = {
   "class": "mt-1"
 };
+var _hoisted_131 = {
+  "class": "sm:col-span-2"
+};
 
-var _hoisted_131 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_132 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "region",
+  "class": "block text-sm font-medium text-gray-700"
+}, " Total Pay ", -1
+/* HOISTED */
+);
+
+var _hoisted_133 = {
+  "class": "mt-1"
+};
+
+var _hoisted_134 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "pt-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex justify-end"
@@ -31774,7 +31818,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         step: "any"
       }, null, 544
       /* HYDRATE_EVENTS, NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.net_pay]])])])])])]), _hoisted_131], 40
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.net_pay]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_131, [_hoisted_132, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_133, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        type: "number",
+        name: "net-pay",
+        disabled: "",
+        "class": "block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+        "onUpdate:modelValue": _cache[35] || (_cache[35] = function ($event) {
+          return $setup.form.actual_pay = $event;
+        }),
+        onChange: $setup.calculatePay,
+        step: "any"
+      }, null, 544
+      /* HYDRATE_EVENTS, NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.actual_pay]])])])])])]), _hoisted_134], 40
       /* PROPS, HYDRATE_EVENTS */
       , _hoisted_1)];
     }),
@@ -31883,10 +31939,7 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, " Total Hours "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   scope: "col",
   "class": "px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase"
-}, " Gross Pay "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  scope: "col",
-  "class": "px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase"
-}, " Net Pay "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+}, " Total Pay "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   scope: "col",
   "class": "px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase"
 }, " Status "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
@@ -31917,13 +31970,10 @@ var _hoisted_24 = {
   "class": "px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
 };
 var _hoisted_25 = {
-  "class": "px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
-};
-var _hoisted_26 = {
   "class": "relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6"
 };
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Edit ");
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Edit ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["AppLayout"], {
@@ -31964,8 +32014,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_19, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.reports, function (report) {
-        var _report$net_pay;
-
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           key: report.id
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(report.name), 1
@@ -31976,9 +32024,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* TEXT */
         ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(report.total_hours) + " Hours ", 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, " £" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(report.gross_pay), 1
-        /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, " £" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_report$net_pay = report.net_pay) !== null && _report$net_pay !== void 0 ? _report$net_pay : '0'), 1
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, " £" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(report.actual_pay), 1
         /* TEXT */
         ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
           "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["px-3 py-4 text-sm text-gray-500 whitespace-nowrap", {
@@ -31990,12 +32036,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }])
         }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(report.status), 3
         /* TEXT, CLASS */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
           href: "/report/".concat(report.id, "/edit"),
           "class": "mr-4 text-indigo-600 hover:text-indigo-900"
         }, {
           "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-            return [_hoisted_27];
+            return [_hoisted_26];
           }),
           _: 2
           /* DYNAMIC */
