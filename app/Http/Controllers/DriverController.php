@@ -37,8 +37,6 @@ class DriverController extends Controller
                     'email' => $driver->email,
                     'phone' => $driver->phone,
                     'type' => $driver_type,
-                    'contract_hours' => $driver->contract_hours,
-                    'holidays_used' => $driver->holidays_used,
                 ];
             })
         ]);
@@ -69,8 +67,6 @@ class DriverController extends Controller
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'type' => $request->input('type'),
-            'contract_hours' => $request->input('contract_hours'),
-            'holidays_used' => 0
         ]);
     
         return Redirect::route('drivers');        
@@ -116,7 +112,6 @@ class DriverController extends Controller
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'type' => $request->input('type'),
-            'contract_hours' => $request->input('contract_hours')
 
         ]);
         return Redirect::route('drivers');        
