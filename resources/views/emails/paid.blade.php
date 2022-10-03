@@ -66,7 +66,7 @@ Overtime Hours: {{ $report->overtime }} hours
 <br>
 Total Hours: {{ $report->total_hours }} hours
 <br>
-Gross Pay: £{{ $report->gross_pay }}
+Gross Pay: £{{ $report->actual_pay }}
 <br>
 <br>
 <h3> Deductions / Expenses are calculated after tax so it is not calculated into the gross pay </h3>

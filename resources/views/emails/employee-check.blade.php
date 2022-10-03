@@ -73,7 +73,7 @@ Total Hours: {{ $report->total_hours }} hours
 Gross Pay: £{{ $report->gross_pay }}
 <br>
 <br>
-<h3> Deductions / Expenses are calculated after tax so it is not calculated into the gross pay </h3>
+<h3> Deductions / Expenses is not calculated into the gross pay </h3>
 <br>
 Deductions: £{{ $report->deductions }} 
 <br>

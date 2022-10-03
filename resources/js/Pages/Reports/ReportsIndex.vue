@@ -110,6 +110,12 @@ function filter_week(week_no){
                             scope="col"
                             class="px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase "
                           >
+                            Gross Pay
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-3 py-3 text-xs font-medium tracking-wide text-left text-gray-500 uppercase "
+                          >
                             Total Pay
                           </th>
                        
@@ -149,6 +155,11 @@ function filter_week(week_no){
                             class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
                           >
                             {{ report.total_hours }} Hours
+                          </td>
+                          <td
+                            class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
+                          >
+                          £{{ report.gross_pay }}
                           </td>
                           <td
                             class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap"
