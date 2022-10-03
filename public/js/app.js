@@ -24443,7 +24443,7 @@ __webpack_require__.r(__webpack_exports__);
       form.overtime = overtime;
       form.gross_pay = form.monday_hours * form.daily_rate.monday + form.tuesday_hours * form.daily_rate.tuesday + form.wednesday_hours * form.daily_rate.wednesday + form.thursday_hours * form.daily_rate.thursday + form.friday_hours * form.daily_rate.friday + form.saturday_hours * form.daily_rate.saturday + form.sunday_hours * form.daily_rate.sunday + 15 * form.monday_bonus + 15 * form.tuesday_bonus + 15 * form.wednesday_bonus + 15 * form.thursday_bonus + 15 * form.friday_bonus + 16 * form.saturday_bonus + 16 * form.sunday_bonus + form.monday_fixed + form.tuesday_fixed + form.wednesday_fixed + form.thursday_fixed + form.friday_fixed + form.saturday_fixed + form.sunday_fixed + form.food_allowance + form.fuel_allowance + form.overtime * 1;
       form.standard_hours = form.total_hours - form.overtime;
-      form.actual_pay = form.gross_pay - form.deductions + form.expenses;
+      form.actual_pay = form.net_pay - form.deductions + form.expenses;
     };
 
     function storeReport() {
@@ -24602,7 +24602,7 @@ __webpack_require__.r(__webpack_exports__);
       form.overtime = overtime;
       form.gross_pay = form.monday_hours * form.daily_rate.monday + form.tuesday_hours * form.daily_rate.tuesday + form.wednesday_hours * form.daily_rate.wednesday + form.thursday_hours * form.daily_rate.thursday + form.friday_hours * form.daily_rate.friday + form.saturday_hours * form.daily_rate.saturday + form.sunday_hours * form.daily_rate.sunday + 15 * form.monday_bonus + 15 * form.tuesday_bonus + 15 * form.wednesday_bonus + 15 * form.thursday_bonus + 15 * form.friday_bonus + 16 * form.saturday_bonus + 16 * form.sunday_bonus + form.monday_fixed + form.tuesday_fixed + form.wednesday_fixed + form.thursday_fixed + form.friday_fixed + form.saturday_fixed + form.sunday_fixed + form.food_allowance + form.fuel_allowance + form.overtime * 1;
       form.standard_hours = form.total_hours - form.overtime;
-      form.actual_pay = form.gross_pay - form.deductions - form.expenses;
+      form.actual_pay = form.net_pay - form.deductions - form.expenses;
     };
 
     var __returned__ = {

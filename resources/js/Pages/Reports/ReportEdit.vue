@@ -149,7 +149,7 @@ const calculatePay = () => {
     form.overtime * 1;
 
     form.standard_hours = form.total_hours - form.overtime;
-    form.actual_pay = form.gross_pay - form.deductions - form.expenses;
+    form.actual_pay = form.net_pay - form.deductions - form.expenses;
 };
 </script>
   
