@@ -44,6 +44,7 @@ const form = useForm({
   deductions: null,
   expenses: null,
   gross_pay: null,
+  actual_pay: null,
   status: 1,
   week_no:props.current_week,
   payslip: null,
@@ -98,6 +99,8 @@ const calculatePay = () => {
     + form.overtime * 1;
 
     form.standard_hours = form.total_hours - form.overtime;
+
+    form.actual_pay = form.gross_pay - form.deductions + form.expenses;
 };
 
 function storeReport() {
@@ -819,6 +822,26 @@ function storeReport() {
                   name="net-pay"
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.net_pay"
+                  @change="calculatePay"
+                  step="any"
+                />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label
+                for="region"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Total Pay
+              </label>
+              <div class="mt-1">
+                <input
+                  type="number"
+                  name="net-pay"
+                  disabled
+                  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  v-model="form.actual_pay"
                   @change="calculatePay"
                   step="any"
                 />

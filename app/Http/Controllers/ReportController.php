@@ -76,6 +76,7 @@ class ReportController extends Controller
                         'net_pay' => $report->net_pay,
                         'overtime' => $report->overtime,
                         'gross_pay' => $report->gross_pay,
+                        'actual_pay' => $report->actual_pay,
 
                     ];
                 }),
@@ -136,6 +137,7 @@ class ReportController extends Controller
                         'net_pay' => $report->net_pay,
                         'overtime' => $report->overtime,
                         'gross_pay' => $report->gross_pay,
+                        'actual_pay' => $report->actual_pay,
 
                     ];
                 }),
@@ -211,6 +213,7 @@ class ReportController extends Controller
             'overtime' => $request->input('overtime'),
             'standard_hours' => $request->input('standard_hours'),
             'gross_pay' => $request->input('gross_pay'),
+            'actual_pay' => $request->input('actual_pay'),
             'payslip' => $payslip,
 
         ]);
@@ -316,6 +319,7 @@ class ReportController extends Controller
             'standard_hours' => $request->input('standard_hours'),
             'overtime' => $request->input('overtime'),
             'gross_pay' => $request->input('gross_pay'),
+            'actual_pay' => $request->input('actual_pay'),
             'payslip' => $payslip,
         ]);
         return Redirect::route('reports');

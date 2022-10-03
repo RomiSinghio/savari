@@ -96,6 +96,7 @@ function updateReport() {
     deductions: form.deductions,
     expenses: form.expenses,
     gross_pay: form.gross_pay,
+    actual_pay: form.actual_pay,
     payslip: form.payslip,
   });
 }
@@ -148,6 +149,7 @@ const calculatePay = () => {
     form.overtime * 1;
 
     form.standard_hours = form.total_hours - form.overtime;
+    form.actual_pay = form.gross_pay - form.deductions - form.expenses;
 };
 </script>
   
@@ -864,6 +866,25 @@ const calculatePay = () => {
                   name="net-pay"
                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   v-model="form.net_pay"
+                  @change="calculatePay"
+                  step="any"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="region"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Total Pay
+              </label>
+              <div class="mt-1">
+                <input
+                  type="number"
+                  name="net-pay"
+                  disabled
+                  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  v-model="form.actual_pay"
                   @change="calculatePay"
                   step="any"
                 />
