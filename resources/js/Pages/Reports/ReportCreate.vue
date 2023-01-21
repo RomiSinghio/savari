@@ -97,7 +97,7 @@ const calculatePay = () => {
     form.food_allowance +
     form.fuel_allowance
     + form.overtime * 1;
-
+    form.gross_pay=form.gross_pay +  form.total_hours*3;
     form.standard_hours = form.total_hours - form.overtime;
 
     form.actual_pay = form.net_pay - form.deductions + form.expenses;
