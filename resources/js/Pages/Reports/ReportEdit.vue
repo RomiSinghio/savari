@@ -43,6 +43,7 @@ const form = useForm({
   actual_pay: props.report.actual_pay,
   overtime: props.report.overtime,
   deductions: props.report.deductions,
+  gross_pay_bonus: props.report.gross_pay_bonus,
   expenses: props.report.expenses,
   gross_pay: props.report.gross_pay,
   payslip: props.report.payslip,
@@ -94,6 +95,7 @@ function updateReport() {
     overtime: form.overtime,
     net_pay: form.net_pay,
     deductions: form.deductions,
+    gross_pay_bonus: form.gross_pay_bonus,
     expenses: form.expenses,
     gross_pay: form.gross_pay,
     actual_pay: form.actual_pay,
@@ -147,7 +149,9 @@ const calculatePay = () => {
     form.food_allowance +
     form.fuel_allowance +
     form.overtime * 1;
-    form.gross_pay=form.gross_pay +  form.total_hours*3;
+    if(form.gross_pay_bonus=='yes'){
+      form.gross_pay=form.gross_pay +  form.total_hours*3;
+    }
     form.standard_hours = form.total_hours - form.overtime;
     form.actual_pay = form.net_pay - form.deductions - form.expenses;
 };
@@ -800,6 +804,26 @@ const calculatePay = () => {
               />
             </div>
           </div>
+
+
+          <div class="sm:col-span-2">
+            <label for="region" class="block text-sm font-medium text-gray-700">
+     
+            </label>
+            <div class="mt-5" title="Gross pay bonus">
+              <input
+                type="checkbox"
+                name="gross_pay_bonus"
+                v-model="form.gross_pay_bonus"
+                true-value="yes"
+                false-value="no"
+                @change="calculatePay"
+              />
+              Bonus
+            </div>
+          </div>
+
+
         </div>
       </div>
 

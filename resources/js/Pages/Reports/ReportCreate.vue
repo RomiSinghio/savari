@@ -42,6 +42,7 @@ const form = useForm({
   net_pay: null,
   overtime: null,
   deductions: null,
+  gross_pay_bonus: null,
   expenses: null,
   gross_pay: null,
   actual_pay: null,
@@ -97,7 +98,9 @@ const calculatePay = () => {
     form.food_allowance +
     form.fuel_allowance
     + form.overtime * 1;
-    form.gross_pay=form.gross_pay +  form.total_hours*3;
+    if(form.gross_pay_bonus=='yes'){
+      form.gross_pay=form.gross_pay +  form.total_hours*3;
+    }
     form.standard_hours = form.total_hours - form.overtime;
 
     form.actual_pay = form.net_pay - form.deductions + form.expenses;
@@ -756,6 +759,23 @@ function storeReport() {
               />
             </div>
           </div>
+          <div class="sm:col-span-2">
+            <label for="region" class="block text-sm font-medium text-gray-700">
+     
+            </label>
+            <div class="mt-5" title="Gross pay bonus">
+              <input
+                type="checkbox"
+                name="gross_pay_bonus"
+                v-model="form.gross_pay_bonus"
+                true-value="yes"
+                false-value="no"
+                @change="calculatePay"
+              />
+              Bonus
+            </div>
+          </div>
+
         </div>
       </div>
 

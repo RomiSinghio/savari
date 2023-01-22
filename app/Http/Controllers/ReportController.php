@@ -178,6 +178,10 @@ class ReportController extends Controller
         } else {
             $payslip = null;
         }
+        $gross_pay_bonus='no';
+        if($request->has('gross_pay_bonus')){
+            $gross_pay_bonus=$request->input('gross_pay_bonus');
+        }
         Report::create([
             'driver_id' => $request->input('driver_id'),
             'status' => $request->input('status'),
@@ -215,6 +219,7 @@ class ReportController extends Controller
             'gross_pay' => $request->input('gross_pay'),
             'actual_pay' => $request->input('actual_pay'),
             'payslip' => $payslip,
+            'gross_pay_bonus' => $gross_pay_bonus,
 
         ]);
 
@@ -282,7 +287,10 @@ class ReportController extends Controller
             $report->status = 6;
             $report->save();
         }
-
+        $gross_pay_bonus='no';
+        if($request->has('gross_pay_bonus')){
+            $gross_pay_bonus=$request->input('gross_pay_bonus');
+        }
 
         $report->update([
             'driver_id' => $request->input('driver_id'),
@@ -321,6 +329,7 @@ class ReportController extends Controller
             'gross_pay' => $request->input('gross_pay'),
             'actual_pay' => $request->input('actual_pay'),
             'payslip' => $payslip,
+            'gross_pay_bonus' => $gross_pay_bonus,
         ]);
         return Redirect::route('reports');
     }
